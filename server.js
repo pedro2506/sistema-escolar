@@ -22,8 +22,8 @@ app.post('/teste', upload.single('imagem'), (req, res) => {
     res.send({ mensagem: 'Sucesso!', arquivo: req.file.originalname });
 });
 
-app.listen(1234, () => {
-    console.log("servidor iniciado na porta 1234");
+app.listen(5000, () => {
+    console.log("servidor iniciado na porta 5000");
 });
 
 
