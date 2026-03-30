@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 
-app.post('/publico', upload.single('imagem'), (req, res) => {
+app.post('/upload', upload.single('imagem'), (req, res) => {
     console.log(">>> RECEBI UMA CHAMADA NO POSTMAN! <<<"); 
     if (!req.file) {
         return res.status(400).send('Nenhum arquivo enviado.');
