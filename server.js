@@ -15,6 +15,7 @@ const upload = multer({ storage: storage });
 
 // ESTA É A ROTA QUE O POSTMAN PRECISA CHAMAR
 app.post('/teste', upload.single('imagem'), (req, res) => {
+    console.log(">>> RECEBI UMA CHAMADA NO POSTMAN! <<<"); // Adicione isso aqui
     if (!req.file) {
         return res.status(400).send('Nenhum arquivo enviado.');
     }
