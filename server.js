@@ -1,26 +1,32 @@
 const express = require('express');
-
+const multer  = require('multer');
 const app = express();
 
-app.get ('/', (req, res) => {
-    res.send('Requisição recebida!');
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'publico/') 
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname) 
+  }
 });
 
-app.get('/home', (req, res) => {
-    res.send("Home Page");
-})
+const upload = multer({ storage: storage });
 
-app.get('/ME', (req, res) => { --colcar /me/pedro/fortaleza
-    const {nome, cidade} = req.query;
-    res.send(`Meu nome é ${nome}, moro em ${cidade}`);
-})
-
-app.get('/ME/:nome/:cidade', (req, res) => { 
-    const {nome, cidade} = req.params;
-    res.send(`Meu nome é ${nome}, moro em ${cidade}`);
-})
-
+// ESTA É A ROTA QUE O POSTMAN PRECISA CHAMAR
+app.post('/publico', upload.single('imagem'), (req, res) => {
+    if (!req.file) {
+        return res.status(400).send('Nenhum arquivo enviado.');
+    }
+    res.send({ mensagem: 'Sucesso!', arquivo: req.file.originalname });
+});
 
 app.listen(1234, () => {
     console.log("servidor iniciado na porta 1234");
 });
+
+
+
+
+
+
